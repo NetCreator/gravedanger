@@ -5,16 +5,26 @@
         <script type="text/javascript">
             var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
+            var curGameState;
+
+            /**
+             * Load our images, sounds, and so on
+             */
             function preload() {
-                
+
             }
-            
+
+            /**
+             * Start up our game and create the main menu, our first game state
+             */
             function create() {
-                
+                curGameState = globals.gameState.MAINMENU;
+
+
             }
-            
+
             function update() {
-                
+
             }
         </script>
     </head>

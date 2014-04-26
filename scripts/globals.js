@@ -1,0 +1,1 @@
+var gameState = {MAINMENU : 1, PLAYING: 2, GAMEOVER: 3};

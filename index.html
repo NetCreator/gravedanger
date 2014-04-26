@@ -11,7 +11,9 @@
              * Load our images, sounds, and so on
              */
             function preload() {
-
+                // Load the background for hte mainmenu
+                game.load.image('menubackground', 'images/something.png');
+                game.load.image('startbutton', 'images/startbutton.png');
             }
 
             /**
@@ -20,7 +22,11 @@
             function create() {
                 curGameState = globals.gameState.MAINMENU;
 
+                // Render the background fo the main menu
+                game.add.sprite(0, 0, 'menubackground');
 
+                // Create a start button and render
+                game.add.button(STARTPOSX, STARTPOSY, 'startbutton', startGame);
             }
 
             function update() {

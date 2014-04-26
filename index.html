@@ -7,12 +7,12 @@
 
             var curGameState;
 
-            var startbutton.topleft = {
+            var startbuttonPosition = {
                 x: 145,
                 y: 290
             }
             
-            var title.topleft = {
+            var titlePosition = {
                 x: 125,
                 y: 275
             }
@@ -36,10 +36,10 @@
                 game.add.sprite(0, 0, 'menubackground');
 
                 // Create a start button and render
-                game.add.button(startbutton.topleft.x, startbutton.topleft.y, 'startbutton', startGame);
+                game.add.button(startbuttonPosition.x, startbuttonPosition.y, 'startbutton', startGame);
               
                 // Create the title text and render it
-                game.add.text(title.topleft.x, title.topleft.y, "Grave Danger")
+                game.add.text(titlePosition.x, titlePosition.y, "Grave Danger")
             }
 
             function update() {

@@ -24,7 +24,7 @@ globals.gameState.MAINMENU = function (game) {
         game.add.button(offsets.startbutton.x, offsets.startbutton.y, 'startbutton', startGame);
 
         // Create the title text and render it
-        game.add.text(offsets.titletext.x, offsets.titletext.y, "Grave Danger")
+        game.add.text(offsets.titletext.x, offsets.titletext.y, "Grave Danger");
     };
 
     this.update = function () {

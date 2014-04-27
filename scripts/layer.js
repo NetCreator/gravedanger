@@ -2,17 +2,23 @@ function layer(game, imgkey)
 {
     this.game = game;
     
+    // Size of the physical tile image
+    this.actualTileSize = 64;
+    
+    // Size the game treats the tile as for purposes of rendering larger than a tile
+    this.virtualTileSize = 50;
+    
+    // Dynamically determine the dimensions of the logic grid
     var logicGridStats = {
-        numRows: 100,
-        numColumns: 100
+        numRows: Math.floor(800/this.virtualTileSize),
+        numColumns: Math.floor(600/this.virtualTileSize)
     };
     
-    /** Temp grid */
-    var logicGrid = new Array(logicGridStats.numRows);
+    this.logicGrid = new Array(logicGridStats.numRows);
     
     // Logic grid creation
     for (var i = 0; i < logicGridStats.numRows; i++) {
-        logicGrid[i] = new Array(logicGridStats.numColumns);
+        this.logicGrid[i] = new Array(logicGridStats.numColumns);
     }
     
     this.patches;

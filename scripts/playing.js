@@ -1,5 +1,5 @@
 globals.gameState.PLAYING = function (game) {
-    var layers;
+    this.layers = new Array();
     
     this.preload = function () {
         //Sherlock - added in temp holders for the initial coffin layer and further layers to be edited and commented in as progress happens.
@@ -27,7 +27,7 @@ globals.gameState.PLAYING = function (game) {
     this.create = function () {
         //Sherlock - also added in temp holders here for the same purposes. Was wondering if we should edit the names to be 'Dirt1' and such for clarity later on?
         //there also seems to be a problem with syntax, I think we need to define 'layer' as an object, possibly in a new file for space.
-        layers = [
+        this.layers = [
             //new layer(game, 'layer0'),
             new layer(game, 'layer1'),
             new layer(game, 'layer2')

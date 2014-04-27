@@ -9,16 +9,30 @@ globals.gameState.PLAYING = function (game) {
     var logicGrid = new Array(logicGridStats.numRows);
     
     this.preload = function () {
+        //Sherlock - added in temp holders for the initial coffin layer and further layers to be edited and commented in as progress happens.
         game.load.audio('hittingcoffin', 'sounds/hittingcoffin.wav');
         game.load.audio('diggingdirt', 'sounds/digindirt.wav');
+        //game.load.image('layer0', 'images/Coffin.png');
         game.load.image('layer1', 'images/TempDirt.png');
         game.load.image('layer2', 'images/DirtProtoSmall.png');
+        //game.load.image('layer3', 'images/DirtProtoSmall2.png');
+        //game.load.image('layer4', 'images/DirtProtoSmall3.png');
+        //game.load.image('layer5', 'images/DirtProtoSmall4.png');
+        //game.load.image('layer6', 'images/DirtProtoSmall5.png');
+        //game.load.image('layer7', 'images/MudProtoSmall.png');
     };
 
     this.create = function () {
+        //Sherlock - also added in temp holders here for the same purposes. Was wondering if we should edit the names to be 'Dirt1' and such for clarity later on?
         layers = [
+            //new layer(game, 'layer0'),
             new layer(game, 'layer1'),
             new layer(game, 'layer2')
+            //new layer(game, 'layer3'),
+            //new layer(game, 'layer4'),
+            //new layer(game, 'layer5'),
+            //new layer(game, 'layer6'),
+            //new layer(game, 'layer7')
         ];
 
         lowerLayer = game.add.existing(layers[1].sprite);

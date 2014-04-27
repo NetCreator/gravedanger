@@ -9,22 +9,8 @@ var globals = {
     /**
      * These are the game states our game may operate in.
      */
-    var offsets = function() {
-        var startbutton = {
-            x: 145,
-            y: 290
-        };
-
-        var titletext = {
-            x: 125,
-            y: 275
-        };
-    }
-
     gameState :  {
-        MAINMENU : function (game) {
-            
-        },
+        MAINMENU : function (game) {},
         PLAYING: function (game) {
             this.preload = function () {
             },
@@ -45,5 +31,5 @@ var globals = {
             this.update = function () {
             }
         }
-    }
+    },
 };

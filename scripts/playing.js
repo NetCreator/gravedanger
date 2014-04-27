@@ -14,7 +14,7 @@ globals.gameState.PLAYING = function (game) {
             new layer(game, 'layer2')
         ];
 
-        nextLayer = game.add.existing(layers[1].sprite);
+        lowerLayer = game.add.existing(layers[1].sprite);
         layer = game.add.existing(layers[0].sprite);
         game.input.onDown.add(this.nextLayer, this);
     };
@@ -23,7 +23,11 @@ globals.gameState.PLAYING = function (game) {
     };
 
     this.nextLayer = function () {
-        layer = nextLayer;
-        enxtLayer = null;
+        temp = layer;
+        layer = lowerLayer;
+        lowerLayer = temp;
+        layer.parent.moveUp(layer);
+        layer.update();
+        lowerLayer.update();
     };
 };

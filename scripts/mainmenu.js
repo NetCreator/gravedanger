@@ -24,7 +24,7 @@ globals.gameState.MAINMENU = function (game) {
         game.add.button(offsets.startbutton.x, offsets.startbutton.y, 'startbutton', this.startGame);
 
         // Create the title text and render it
-        game.add.text(offsets.titletext.x, offsets.titletext.y, "Grave Danger", { font: "46px Cracked", fill: "#ffffff", align: "left"});
+        game.add.text(offsets.titletext.x, offsets.titletext.y, "Grave Digger", {font: "fonts/Cracked.text", fill: "#ffffff"});
     };
 
     this.update = function () {

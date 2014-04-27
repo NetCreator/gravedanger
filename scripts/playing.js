@@ -28,6 +28,7 @@ globals.gameState.PLAYING = function (game) {
         //game.load.image('stage3', 'images/DigStage3.png');
         //game.load.image('stage4', 'images/DigStage4.png');
         //game.load.image('stage5', 'images/DigStage5.png');
+        game.load.image('mask', 'images/mask.png');
     };
 
     this.create = function () {
@@ -43,10 +44,11 @@ globals.gameState.PLAYING = function (game) {
             //new layer(game, 'layer6'),
             //new layer(game, 'layer7')
         ];
-
-        lowerLayer = game.add.existing(layers[1].sprite);
-        layer = game.add.existing(layers[0].sprite);
-
+        
+        game.stage.backgroundColor = 0x880000;
+        //nextLayer = game.add.existing(layers[1].sprite);
+        //layer = game.add.existing(layers[0].sprite);
+        
         game.input.onDown.add(this.nextLayer, this);
         
         // Logic grid creation
@@ -54,12 +56,24 @@ globals.gameState.PLAYING = function (game) {
             logicGrid[i] = new Array(logicGridStats.numColumns);
         }
         
-        game.input.onDown.add(this.nextLayerCow, this);
+        var layer2 = new Phaser.Sprite(game, 0,0,'layer1',0);
+        
+        var tilemask = game.add.bitmapData(800,600, 'tilemask', true);
+        tilemask.draw('mask', 0, 0);
+        
+        var tilepatch = game.add.bitmapData(800,600, 'tilepatch', true);
+        tilepatch.copyPixels('layer2', new Phaser.Rectangle(0,0,64,64),0,0);
+        
+        var alphapatch = game.add.bitmapData(64, 64, 'alphapatch', true);
+        alphapatch.alphaMask(tilepatch.canvas, 'mask');
+        
+        game.add.sprite(0,0, tilemask);
+        game.add.sprite(64,0,tilepatch);
+        game.add.sprite(128,0,alphapatch);
     };
 
     this.update = function () {
     };
-
 
     this.nextLayer = function () {
         temp = layer;

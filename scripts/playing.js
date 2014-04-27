@@ -3,6 +3,7 @@ globals.gameState.PLAYING = function (game) {
         game.load.image('background', 'images/DirtProtoLarge.png');
         game.load.audio('hittingcoffin', 'sounds/hitingcoffin.wav');
         game.load.audio('diggingdirt', 'sounds/digindirt.wav');
+
     };
 
     this.create = function () {

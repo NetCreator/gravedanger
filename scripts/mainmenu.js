@@ -1,4 +1,4 @@
-globals.gameState.MAINMENU = function (game) {
+globals.gameState.MAINMENU = function (game) { 
     var offsets = {
         startbutton : {
             x: 210,
@@ -10,7 +10,8 @@ globals.gameState.MAINMENU = function (game) {
         // Load the background for the main menu
         game.load.image('menubackground', 'images/TitleMenu/MenuLayout.png');
         game.load.image('startbutton',    'images/TitleMenu/StartButton.png');
-        game.load.audio('menuBGM', 'music/creepyloop.wav');
+        game.load.audio('menuBGMintro', 'music/creepyintro.wav');
+        game.load.audio('menuBGMloop', 'music/creepyloop.wav');
     };
 
     this.create = function () {
@@ -21,10 +22,18 @@ globals.gameState.MAINMENU = function (game) {
         game.add.button(offsets.startbutton.x, offsets.startbutton.y, 'startbutton', this.startGame);
         
         // Add BGM
-        music = game.add.audio('menuBGM', 1, true);
-        music.play('', 0, 1, true);
+        music = game.add.sound('menuBGMintro');
+        music.play();
+        
+        music.onStop.addOnce(this.loopAudio);
     };
 
+    this.loopAudio = function()
+    {
+        music2 = game.add.sound('menuBGMloop');
+        music2.play('', 0, 1, true);
+    }
+    
     this.update = function () {
     };
 

@@ -9,8 +9,9 @@ Phaser.sublime-workspace
 *.suo
 *.sublime-project
 *.sublime-workspace
-docs/*
-resources/*
+docs/
+resources/
+examples/
 
 # Vendors
 node_modules/

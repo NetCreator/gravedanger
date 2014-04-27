@@ -22,16 +22,16 @@ globals.gameState.MAINMENU = function (game) {
         game.add.button(offsets.startbutton.x, offsets.startbutton.y, 'startbutton', this.startGame);
         
         // Add BGM
-        music = game.add.sound('menuBGMintro');
-        music.play();
+        this.music = game.add.sound('menuBGMintro');
+        this.music.play();
         
-        music.onStop.addOnce(this.loopAudio);
+        this.music.onStop.addOnce(this.loopAudio);
     };
 
     this.loopAudio = function()
     {
-        music2 = game.add.sound('menuBGMloop');
-        music2.play('', 0, 1, true);
+        this.music = new Phaser.Sound(game, 'menuBGMloop');
+        this.music.play('', 0, 1, true);
     }
     
     this.update = function () {

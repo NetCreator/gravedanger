@@ -3,7 +3,7 @@ globals.gameState.PLAYING = function (game) {
     
     var logicGridStats = {
         numRows: 100,
-        numCollumns: 100
+        numColumns: 100
     };
     
     var logicGrid = new Array(logicGridStats.numRows);
@@ -28,7 +28,7 @@ globals.gameState.PLAYING = function (game) {
         
         // Logic grid creation
         for (var i = 0; i < logicGridStats.numRows; i++) {
-            logicGrid[i] = new Array(logicGridStats.numCollumns);
+            logicGrid[i] = new Array(logicGridStats.numColumns);
         }
         
         game.input.onDown.add(this.nextLayerCow, this);

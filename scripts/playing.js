@@ -2,14 +2,10 @@ globals.gameState.PLAYING = function (game) {
     var layers;
 
     this.preload = function () {
-<<<<<<< Updated upstream
-        game.load.image('background', 'images/DirtProtoLarge.png');
         game.load.audio('hittingcoffin', 'sounds/hitingcoffin.wav');
         game.load.audio('diggingdirt', 'sounds/digindirt.wav');
-=======
         game.load.image('layer1', 'images/TempDirt.png');
         game.load.image('layer2', 'images/DirtProtoSmall.png');
->>>>>>> Stashed changes
     };
 
     this.create = function () {

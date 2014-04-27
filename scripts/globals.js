@@ -9,17 +9,10 @@ var globals = {
     /**
      * These are the game states our game may operate in.
      */
-<<<<<<< Updated upstream
     gameState :  {
-        MAINMENU:  function (game) {},
-        PLAYING:   function (game) {},
-        GAMEOVER:  function (game) {}
-=======
-    gameState: {
         MAINMENU: function (game) {},
         PLAYING:  function (game) {},
         GAMEOVER: function (game) {}
->>>>>>> Stashed changes
     }
 };
 

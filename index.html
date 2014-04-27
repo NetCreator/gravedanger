@@ -3,29 +3,20 @@
         <script src="phaser-master/build/phaser.min.js"></script>
         <script src="scripts/globals.js"></script>
         <script type="text/javascript">
-            var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+            var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game-container');
 
             var curGameState;
-
-            /**
-             * Load our images, sounds, and so on
-             */
-            function preload() {
-
-            }
-
-            /**
-             * Start up our game and create the main menu, our first game state
-             */
-            function create() {
-                curGameState = globals.gameState.MAINMENU;
-
-
-            }
-
-            function update() {
-
-            }
+            
+            // Add game states
+            game.state.add('MainMenu', globals.gameState.MAINMENU);
+            game.state.add('Playing', globals.gameState.PLAYING);
+            game.state.add('GameOver', globals.gameState.GAMEOVER);
+            
+            game.state.start('MainMenu');
         </script>
     </head>
+    <body>
+        <div id="game-container">
+        </div>
+    </body>
 </html>

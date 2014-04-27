@@ -9,5 +9,36 @@ var globals = {
     /**
      * These are the game states our game may operate in.
      */
-    gameState :  {MAINMENU : 1, PLAYING: 2, GAMEOVER: 3}
+    gameState :  {
+        MAINMENU : function (game) {
+            this.preload = function () {
+            },
+            
+            this.create = function () {
+            },
+            
+            this.update = function () {
+            }
+        },
+        PLAYING: function (game) {
+            this.preload = function () {
+            },
+            
+            this.create = function () {
+            },
+            
+            this.update = function () {
+            }
+        },
+        GAMEOVER: function (game) {
+            this.preload = function () {
+            },
+            
+            this.create = function () {
+            },
+            
+            this.update = function () {
+            }
+        }
+    }
 };

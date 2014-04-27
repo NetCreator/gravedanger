@@ -22,7 +22,7 @@ globals.gameState.PLAYING = function (game) {
         //game.load.image('layer7', 'images/MudProtoSmall.png');
         
         //Sherlock - added in some loaders for the stages of digging. commented out so they don't get in the way for the moment.
-        //game.load.image('stage0', 'images/DigStage0.png');
+        //game.load.image('stage0', 'images/DigStage0.png'); //base stage, nothing has happened to the block/square/magical-obtuse-dragon-of-mythicology
         //game.load.image('stage1', 'images/DigStage1.png');
         //game.load.image('stage2', 'images/DigStage2.png');
         //game.load.image('stage3', 'images/DigStage3.png');

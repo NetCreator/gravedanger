@@ -2,13 +2,18 @@ function layer(game, imgkey)
 {
     this.game = game;
     
+    var logicGridStats = {
+        numRows: 100,
+        numColumns: 100
+    };
+    
     /** Temp grid */
-    this.grid = [[0,0,0,0,0,0,0,0,0,0,0,0,0],
-                 [0,0,0,0,0,0,0,0,0,0,0,0,0],
-                 [0,0,0,0,0,0,0,0,0,0,0,0,0],
-                 [0,0,0,0,0,0,0,0,0,0,0,0,0],
-                 [0,0,0,0,0,0,0,0,0,0,0,0,0],
-                 [0,0,0,0,0,0,0,0,0,0,0,0,0]];
+    var logicGrid = new Array(logicGridStats.numRows);
+    
+    // Logic grid creation
+    for (var i = 0; i < logicGridStats.numRows; i++) {
+        logicGrid[i] = new Array(logicGridStats.numColumns);
+    }
     
     this.patches;
     
@@ -19,16 +24,16 @@ function layer(game, imgkey)
     }
     
     this.draw = function () {
-        this.patches = new Array(this.grid.length);
+        this.patches = new Array(this.logicGrid.length);
         for(var i = 0; i < this.patches.length; i++)
         {
-            this.patches[i] = new Array(this.grid[0].length);
+            this.patches[i] = new Array(this.logicGrid[0].length);
         }
         
         // Generate the dirt patch for each logical tile
-        for(y = 0; y < this.grid.length; y++)
+        for(y = 0; y < this.logicGrid.length; y++)
         {
-            for(x = 0; x <= this.grid[y].length; x++)
+            for(x = 0; x <= this.logicGrid[y].length; x++)
             {
                 if(this.grid[y][x] == 0)
                 {

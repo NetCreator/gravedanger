@@ -26,7 +26,6 @@ globals.gameState.PLAYING = function (game) {
 
     this.create = function () {
         //Sherlock - also added in temp holders here for the same purposes. Was wondering if we should edit the names to be 'Dirt1' and such for clarity later on?
-        //there also seems to be a problem with syntax, I think we need to define 'layer' as an object, possibly in a new file for space.
         this.layers = [
             //new layer(game, 'layer0'),
             new layer(game, 'layer1'),

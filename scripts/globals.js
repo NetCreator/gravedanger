@@ -15,8 +15,3 @@ var globals = {
         GAMEOVER: function (game) {}
     }
 };
-
-function layer(game, imgkey)
-{
-    this.sprite = new Phaser.Sprite(game, 0, 0, imgkey, 0);
-}

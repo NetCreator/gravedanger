@@ -1,12 +1,12 @@
 globals.gameState.MAINMENU = function (game) {
     var offsets = {
         startbutton : {
-            x: 145,
-            y: 290
+            x: 249,
+            y: 255
         },
         titletext : {
-            x: 125,
-            y: 275
+            x: 68,
+            y: 188
         }
     };
 
@@ -24,7 +24,7 @@ globals.gameState.MAINMENU = function (game) {
         game.add.button(offsets.startbutton.x, offsets.startbutton.y, 'startbutton', this.startGame);
 
         // Create the title text and render it
-        game.add.text(offsets.titletext.x, offsets.titletext.y, "Grave Danger");
+        game.add.text(offsets.titletext.x, offsets.titletext.y, "Grave Danger", { font: "46px Cracked", fill: "#ffffff", align: "left"});
     };
 
     this.update = function () {

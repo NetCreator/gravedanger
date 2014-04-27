@@ -1,8 +1,8 @@
 globals.gameState.MAINMENU = function (game) {
     this.preload = function () {
         // Load the background for the main menu
-        game.load.image('menubackground', 'images/titlemenu/MenuLayout.png');
-        game.load.image('startbutton', 'images/startbutton.png');
+        game.load.image('menubackground', 'images/TitleMenu/MenuLayout.png');
+        game.load.image('startbutton', 'images/TitleMenu/StartButton.png');
     };
 
     this.create = function () {

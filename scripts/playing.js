@@ -1,13 +1,6 @@
 globals.gameState.PLAYING = function (game) {
     var layers;
     
-    var logicGridStats = {
-        numRows: 100,
-        numColumns: 100
-    };
-    
-    var logicGrid = new Array(logicGridStats.numRows);
-    
     this.preload = function () {
         //Sherlock - added in temp holders for the initial coffin layer and further layers to be edited and commented in as progress happens.
         game.load.audio('hittingcoffin', 'sounds/hittingcoffin.wav');
@@ -50,11 +43,6 @@ globals.gameState.PLAYING = function (game) {
         //layer = game.add.existing(layers[0].sprite);
         
         game.input.onDown.add(this.nextLayer, this);
-        
-        // Logic grid creation
-        for (var i = 0; i < logicGridStats.numRows; i++) {
-            logicGrid[i] = new Array(logicGridStats.numColumns);
-        }
         
         var layer2 = new Phaser.Sprite(game, 0,0,'layer1',0);
         

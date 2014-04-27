@@ -6,8 +6,9 @@ globals.gameState.PLAYING = function (game) {
         game.load.audio('hittingcoffin', 'sounds/hittingcoffin.wav');
         game.load.audio('diggingdirt', 'sounds/digindirt.wav');
         //game.load.image('layer0', 'images/Coffin.png');
-        game.load.image('layer1', 'images/TempDirt.png');
-        game.load.image('layer2', 'images/DirtProtoSmall.png');
+        game.load.image('layer1', 'images/DirtProtoSmall.png');
+        game.load.image('layer2', 'images/DirtProtoLarge.png');
+        game.load.image('differential', 'images/layerdifferential.png');
         //game.load.image('layer3', 'images/DirtProtoSmall2.png');
         //game.load.image('layer4', 'images/DirtProtoSmall3.png');
         //game.load.image('layer5', 'images/DirtProtoSmall4.png');
@@ -21,7 +22,7 @@ globals.gameState.PLAYING = function (game) {
         //game.load.image('stage3', 'images/DigStage3.png');
         //game.load.image('stage4', 'images/DigStage4.png');
         //game.load.image('stage5', 'images/DigStage5.png');
-        game.load.image('mask', 'images/mask.png');
+        game.load.image('mask', 'images/masklarge.png');
     };
 
     this.create = function () {
@@ -38,25 +39,15 @@ globals.gameState.PLAYING = function (game) {
         ];
         
         game.stage.backgroundColor = 0x880000;
-        //nextLayer = game.add.existing(layers[1].sprite);
-        //layer = game.add.existing(layers[0].sprite);
         
         game.input.onDown.add(this.nextLayer, this);
         
-        var layer2 = new Phaser.Sprite(game, 0,0,'layer1',0);
+        lowerLayer = this.layers[0];
+        layer = this.layers[1];
         
-        var tilemask = game.add.bitmapData(800,600, 'tilemask', true);
-        tilemask.draw('mask', 0, 0);
-        
-        var tilepatch = game.add.bitmapData(800,600, 'tilepatch', true);
-        tilepatch.copyPixels('layer2', new Phaser.Rectangle(0,0,64,64),0,0);
-        
-        var alphapatch = game.add.bitmapData(64, 64, 'alphapatch', true);
-        alphapatch.alphaMask(tilepatch.canvas, 'mask');
-        
-        game.add.sprite(0,0, tilemask);
-        game.add.sprite(64,0,tilepatch);
-        game.add.sprite(128,0,alphapatch);
+        lowerLayer.draw();
+        game.add.sprite(0,0,'differential'); // for clarity of which layer we are on
+        layer.draw();
     };
 
     this.update = function () {
@@ -66,9 +57,10 @@ globals.gameState.PLAYING = function (game) {
         temp = layer;
         layer = lowerLayer;
         lowerLayer = temp;
-        layer.parent.moveUp(layer);
-        layer.update();
-        lowerLayer.update();
+        
+        lowerLayer.draw();
+        game.add.sprite(0,0,'differential');
+        layer.draw();
     };
     
     this.gridStatus = function () {

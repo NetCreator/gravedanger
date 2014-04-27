@@ -19,7 +19,10 @@ globals.gameState.MAINMENU = function (game) {
         game.add.sprite(0, 0, 'menubackground');
 
         // Create a start button and render
-        game.add.button(offsets.startbutton.x, offsets.startbutton.y, 'startbutton', this.startGame);
+        game.add.sprite(offsets.startbutton.x, offsets.startbutton.y, 'startbutton');
+        
+        // Check for a click to start the game
+        game.input.onDown.addOnce(this.startGame);
         
         // Add BGM
         this.music = game.add.sound('menuBGMintro');
@@ -32,7 +35,7 @@ globals.gameState.MAINMENU = function (game) {
     {
         this.music = new Phaser.Sound(game, 'menuBGMloop');
         this.music.play('', 0, 1, true);
-    }
+    };
     
     this.update = function () {
     };

@@ -1,5 +1,5 @@
 globals.gameState.MAINMENU = function (game) {
-    this.offsets = {
+    var offsets = {
         startbutton : {
             x: 145,
             y: 290
@@ -21,12 +21,16 @@ globals.gameState.MAINMENU = function (game) {
         game.add.sprite(0, 0, 'menubackground');
 
         // Create a start button and render
-        game.add.button(offsets.startbutton.x, offsets.startbutton.y, 'startbutton', startGame);
+        game.add.button(offsets.startbutton.x, offsets.startbutton.y, 'startbutton', this.startGame);
 
         // Create the title text and render it
         game.add.text(offsets.titletext.x, offsets.titletext.y, "Grave Danger");
     };
 
     this.update = function () {
+    };
+
+    this.startGame = function () {
+        game.state.start('Playing');
     };
 };

@@ -1,6 +1,6 @@
 globals.gameState.PLAYING = function (game) {
     this.preload = function () {
-        game.load.image('background', 'phaser_tutorial_02/assets/sky.png');
+        game.load.image('background', 'images/DirtProtoLarge.png');
     };
 
     this.create = function () {

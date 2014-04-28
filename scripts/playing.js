@@ -1,7 +1,7 @@
 globals.gameState.PLAYING = function (game) {
     this.layers = new Array();
     
-    this.nextLayer = 1;
+    this.numNextLayer = 1;
     
     this.preload = function () {
         // Initialize Sounds
@@ -39,6 +39,8 @@ globals.gameState.PLAYING = function (game) {
             //new layer(game, 'sky', 6)
         ];
         
+        this.fx = game.add.audio('diggingdirt', 1, false);
+            
         game.stage.backgroundColor = 0x880000;
         
         this.lowerLayer = this.layers[1];
@@ -64,13 +66,13 @@ globals.gameState.PLAYING = function (game) {
 
     this.nextLayer = function () {
         
-        if(this.nextLayer == 6) {
+        if(this.numNextLayer == 6) {
             return; // ADD IN THE END OF GAME STUFFS >:(
         }
         
         this.layer = this.lowerLayer;
-        this.lowerLayer = this.layer[nextLayer];
-        this.nextLayer++;
+        this.lowerLayer = this.layer[this.numNextLayer];
+        this.numNextLayer++;
         
         this.lowerLayer.drawBackground();
         game.add.existing(this.differential);
@@ -94,11 +96,17 @@ globals.gameState.PLAYING = function (game) {
     };
     
     this.gridStatus = function() {
+        this.playDirtSound();
         if(Math.floor(((this.layer.logicGridStats.numColumns*this.layer.logicGridStats.numRows)*60)/100) >= this.moveAhead) {
             this.nextLayer();
         }
         else {
             return;
         }
+    }
+    
+    this.playDirtSound = function() {
+        this.fx.play();
+        return;
     }
 };

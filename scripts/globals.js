@@ -12,6 +12,7 @@ var globals = {
     gameState :  {
         MAINMENU:  function (game) {},
         PLAYING:   function (game) {},
+        INTRO:     function (game) {},
         GAMEOVER:  function (game) {}
     }
 };

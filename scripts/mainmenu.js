@@ -1,4 +1,4 @@
-globals.gameState.MAINMENU = function (game) { 
+globals.gameState.MAINMENU = function (game) {
     var offsets = {
         startbutton : {
             x: 210,
@@ -6,37 +6,38 @@ globals.gameState.MAINMENU = function (game) {
         }
     };
 
+    var music;
+
     this.preload = function () {
         // Load the background for the main menu
-        game.load.image('menubackground', 'images/TitleMenu/MenuLayout.png');
-        game.load.image('startbutton',    'images/TitleMenu/StartButton.png');
-        game.load.image('startbutton2',   'images/TitleMenu/Title.png');
-        game.load.audio('menuBGMintro',   'music/creepyintro.wav');
+        this.load.image('menubackground', 'images/TitleMenu/MenuLayout.png');
+        this.load.image('startbutton',    'images/TitleMenu/StartButton.png');
+        this.load.audio('menuBGMintro',   'music/creepyintro.wav');
         game.load.audio('menuBGMloop',    'music/creepyloop.wav');
     };
 
     this.create = function () {
         // Render the background fo the main menu
-        game.add.sprite(0, 0, 'menubackground');
+        this.add.sprite(0, 0, 'menubackground');
 
         // Create a start button and render
-        game.add.sprite(offsets.startbutton.x, offsets.startbutton.y, 'startbutton');
-        
+        this.add.sprite(offsets.startbutton.x, offsets.startbutton.y, 'startbutton');
+
         // Check for a click to start the game
-        game.input.onDown.addOnce(this.startGame);
-        
+        this.input.onDown.addOnce(this.startGame);
+
         // Add BGM
-        this.music = game.add.sound('menuBGMintro');
-        this.music.play();
-        
-        this.music.onStop.addOnce(this.loopAudio);
+        music = this.add.sound('menuBGMintro');
+        music.play();
+
+        music.onStop.addOnce(this.loopAudio);
     };
-    
+
     this.loopAudio = function() {
-        this.music = new Phaser.Sound(game, 'menuBGMloop');
-        this.music.play('', 0, 1, true);
+        music = game.add.sound('menuBGMloop');
+        music.play('', 0, 1, true);
     };
-    
+
     this.update = function () {
     };
 

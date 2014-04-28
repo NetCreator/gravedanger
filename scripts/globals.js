@@ -9,7 +9,7 @@ var globals = {
     /**
      * These are the game states our game may operate in.
      */
-    gameState :  {
+    gameState: {
         MAINMENU: function (game) {},
         PLAYING:  function (game) {},
         INTRO:    function (game) {},

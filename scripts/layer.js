@@ -98,7 +98,7 @@ function layer(game, imgkey)
         }
     }
     
-    this.cellUpdateOnClick = function() { //Please change name to one that is equally understandable but easier to type TT-TT
+    this.onMouseDown = function() { //Please change name to one that is equally understandable but easier to type TT-TT
         if (this.logicGrid[this.mousePosition.x][this.mousePosition.y] == this.finalStage) {
             return; // do nothing to the tile because nothing further can happen
         }

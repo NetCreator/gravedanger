@@ -1,4 +1,4 @@
-function layer(game, imgkey)
+function layer(game, imgkey, layernumber)
 {
     this.game = game;
 
@@ -20,98 +20,106 @@ function layer(game, imgkey)
         numRows: Math.floor(600/this.virtualTileSize)+3
     };
 
+    // The grid for storing digging progress
     this.logicGrid = new Array(this.logicGridStats.numColumns);
-
+    
+    // Stores sprites for each digging patch
+    this.patches = new Array(this.logicGrid.length);
+    
+    // The aggregate sprite containing the entire layer image (used for background)
+    this.sprite = new Phaser.Sprite(game, 0, 0, imgkey, 0);
+    
+    // The group to contain all layer graphics
+    this.group = game.add.group(game.world, 'layer-' + layernumber);
+    this.group.setProperty('z', layernumber); // Set the z order according to the layer number
+    //this.group.z = layernumber; 
+    
+    // Temporary variables for creating patch sprites
+    var tilepatch;
+    var alphapatch;
+    
     // Logic grid creation
-    for (var i = 0; i < this.logicGridStats.numColumns; i++) {
-        this.logicGrid[i] = new Array(this.logicGridStats.numRows);
+    for (var x = 0; x < this.logicGridStats.numColumns; x++) {
+        this.logicGrid[x] = new Array(this.logicGridStats.numRows);
+        this.patches[x] = new Array(this.logicGrid[x].length);
 
-        // Setting the numerical status for all stages to 0
-        for (var j = 0; j < this.logicGrid[i].length; j++)
+        // Initialize the digging progress and the patch sprites
+        for (var y = 0; y < this.logicGrid[x].length; y++)
         {
-            this.logicGrid[i][j] = 0;
+            // Initialize the digging progress to 0
+            this.logicGrid[x][y] = 0;
+            
+            // Create the bitmap data structure for storing the tile patch
+            tilepatch = game.add.bitmapData(
+                this.actualTileSize,
+                this.actualTileSize,
+                '', false);
+
+            // Copy the tile patch from the indicated source image
+            tilepatch.copyPixels(imgkey,
+                new Phaser.Rectangle(
+                    (x)*this.virtualTileSize,
+                    (y)*this.virtualTileSize,
+                    this.actualTileSize,
+                    this.actualTileSize
+                ),0,0);
+
+            // Create the bitmap data structure for storing the masked tile patch
+            alphapatch = game.add.bitmapData(this.actualTileSize, this.actualTileSize, 'alphapatch', true);
+
+            // Mask the tile using the given mask
+            alphapatch.alphaMask(tilepatch.canvas, 'mask');
+            
+            // Create the patch
+            this.patches[x][y] = new Phaser.Sprite(
+                game,
+                (x-1)*this.virtualTileSize - (this.actualTileSize - this.virtualTileSize)/2,
+                (y-1)*this.virtualTileSize - (this.actualTileSize - this.virtualTileSize)/2,
+                alphapatch);
         }
     }
-
-    this.patches;
-
-    this.sprite = new Phaser.Sprite(game, 0, 0, imgkey, 0);
 
     this.redraw = function () {
         this.draw();
     };
 
     this.draw = function () {
-        this.patches = new Array(this.logicGrid.length);
-        for(var i = 0; i < this.patches.length; i++)
-        {
-            this.patches[i] = new Array(this.logicGrid[0].length);
-        }
-
-        var tilepatch;
-        var alphapatch;
-
         // Generate the dirt patch for each logical tile
         for(var x = 0; x < this.logicGrid.length; x++)
         {
             for(var y = 0; y <= this.logicGrid[x].length; y++)
             {
                 if(this.logicGrid[x][y] < this.finalStage)
-                {
-                    // Create the bitmap data structure for storing the tile patch
-                    tilepatch = game.add.bitmapData(
-                        this.actualTileSize,
-                        this.actualTileSize,
-                        '', false);
-
-                    // Copy the tile patch from the indicated source image
-                    tilepatch.copyPixels(imgkey,
-                        new Phaser.Rectangle(
-                            (x)*this.virtualTileSize,
-                            (y)*this.virtualTileSize,
-                            this.actualTileSize,
-                            this.actualTileSize
-                        ),0,0);
-
-                    // Create the bitmap data structure for storing the masked tile patch
-                    alphapatch = game.add.bitmapData(this.actualTileSize, this.actualTileSize, 'alphapatch', true);
-
-                    // Mask the tile using the given mask
-                    alphapatch.alphaMask(tilepatch.canvas, 'mask');
-
-                    // Add the masked spirte
-                    if (!this.patches[x][y]) {
-                        this.patches[x][y] = game.add.sprite(
-                            (x-1)*this.virtualTileSize - (this.actualTileSize - this.virtualTileSize)/2,
-                            (y-1)*this.virtualTileSize - (this.actualTileSize - this.virtualTileSize)/2,
-                            alphapatch);
-                    }
+                {   
+                    this.group.add(this.patches[x][y]);
                 }
             }
         }
+        
+        game.add.existing(this.group);
+    };
+    
+    this.drawBackground = function () {
+        this.group.add(this.sprite);
     };
 
-    this.cellUpdateOnClick = function () { //Please change name to one that is equally understandable but easier to type TT-TT
-        var temp = {x: game.input.mousePointer.x, y: game.input.mousePointer.y};
-
-        var temp2 = {x: temp.x/this.virtualTileSize, y: temp.y/this.virtualTileSize};
-
-        var temp3 = {x: Math.floor(temp2.x), y: Math.floor(temp2.y)};
-
-        console.log(this.logicGrid[temp3.x+1][temp3.y +1]);
-
+    this.cellUpdateOnClick = function (that) { //Please change name to one that is equally understandable but easier to type TT-TT
+        
         var mousePosition = {
-            x: Math.floor(game.input.mousePointer.x/this.virtualTileSize)+1,
-            y: Math.floor(game.input.mousePointer.y/this.virtualTileSize)+1,
+            x: Math.floor(game.input.mousePointer.x/that.virtualTileSize)+1,
+            y: Math.floor(game.input.mousePointer.y/that.virtualTileSize)+1,
         }
+        
+        console.log(that.logicGrid[mousePosition.x][mousePosition.y]);
 
-        if (this.logicGrid[mousePosition.x][mousePosition.y] == this.finalStage) {
+        if (that.logicGrid[mousePosition.x][mousePosition.y] == that.finalStage) {
             return; // do nothing to the tile because nothing further can happen
         }
         else {
-            this.logicGrid[mousePosition.x][mousePosition.y]++;
-            if(this.logicGrid[mousePosition.x][mousePosition.y] == this.finalStage) {
-                this.numHoles++;
+            that.logicGrid[mousePosition.x][mousePosition.y]++;
+            if(that.logicGrid[mousePosition.x][mousePosition.y] == that.finalStage) {
+                that.numHoles++;
+                that.group.remove(that.patches[mousePosition.x][mousePosition.y]);
             }
         }
     };

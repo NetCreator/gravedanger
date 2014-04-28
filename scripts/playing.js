@@ -1,6 +1,8 @@
 globals.gameState.PLAYING = function (game) {
     this.layers = new Array();
     
+    this.numNextLayer = 1;
+    
     this.preload = function () {
         // Initialize Sounds
         game.load.audio('hittingcoffin', 'sounds/hittingcoffin.wav');
@@ -28,25 +30,32 @@ globals.gameState.PLAYING = function (game) {
     this.create = function () {
         //Sherlock - also added in temp holders here for the same purposes. Was wondering if we should edit the names to be 'Dirt1' and such for clarity later on?
         this.layers = [
-            new layer(game, 'layer0'),
-            new layer(game, 'layer1'),
-            new layer(game, 'layer2'),
-            new layer(game, 'layer3'),
-            new layer(game, 'layer4'),
-            new layer(game, 'layer5'),
-            //new layer(game, 'sky')
+            new layer(game, 'layer0', 0),
+            new layer(game, 'layer1', 1),
+            new layer(game, 'layer2', 2),
+            new layer(game, 'layer3', 3),
+            new layer(game, 'layer4', 4),
+            new layer(game, 'layer5', 5),
+            //new layer(game, 'sky', 6)
         ];
         
+        this.fx = game.add.audio('diggingdirt', 1, false);
+            
         game.stage.backgroundColor = 0x880000;
         
-        this.lowerLayer = this.layers[0];
-        this.layer = this.layers[1];
+        this.lowerLayer = this.layers[1];
+        this.layer = this.layers[0];
         
-        game.input.onDown.add(this.redrawLayers, this);
+        this.differential = new Phaser.Sprite(game, 0,0, 'differential')
         
-        this.lowerLayer.draw();
-        game.add.sprite(0,0,'differential'); // for clarity of which layer we are on
+        game.input.onDown.add(this.updateLayers, this);
+        
+        this.lowerLayer.drawBackground();
+        game.add.existing(this.differential); // for clarity of which layer we are on
+        //this.differential.bringToTop();
         this.layer.draw();
+        
+        game.world.sort();
     };
     
     // Amount of holes it take to move onto a new layer as a percent
@@ -56,29 +65,45 @@ globals.gameState.PLAYING = function (game) {
     };
 
     this.nextLayer = function () {
-        temp = this.layer;
-        this.layer = this.lowerLayer;
-        this.lowerLayer = temp;
         
-        this.lowerLayer.draw();
-        game.add.sprite(0,0,'differential');
+        if(this.numNextLayer == 6) {
+            return; // ADD IN THE END OF GAME STUFFS >:(
+        }
+        
+        game.world.remove(this.layer.group);
+        
+        this.numNextLayer++;
+        
+        this.layer = this.lowerLayer;
+        this.lowerLayer = this.layers[this.numNextLayer];
+        
+        this.lowerLayer.drawBackground();
+        game.add.existing(this.differential);
         this.layer.draw();
+        
+        game.world.sort();
     };
     
-    this.redrawLayers = function () {
-        this.layer.cellUpdateOnClick();
+    this.updateLayers = function () {
+        this.layer.cellUpdateOnClick(this.layer);
         
-        this.lowerLayer.draw();
-        game.add.sprite(0,0,'differential');
-        this.layer.draw();
+        game.world.sort();
+        
+        this.gridStatus();
     };
     
     this.gridStatus = function() {
-        if(Math.floor((this.layers.numHoles/(this.layers.logicGridStats.numRows*this.layers.logicGridStats.numColumns))*100) >= this.moveAhead) {
+        this.playDirtSound();
+        if(this.layer.numHoles >= Math.floor((((this.layer.logicGridStats.numColumns-3)*(this.layer.logicGridStats.numRows-3))*.3))) {
             this.nextLayer();
         }
         else {
             return;
         }
+    }
+    
+    this.playDirtSound = function() {
+        this.fx.play();
+        return;
     }
 };

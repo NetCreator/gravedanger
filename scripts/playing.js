@@ -96,12 +96,17 @@ globals.gameState.PLAYING = function (game) {
     };
     
     this.gridStatus = function() {
-        this.fx.play();
+        this.playDirtSound();
         if(Math.floor(((this.layer.logicGridStats.numColumns*this.layer.logicGridStats.numRows)*60)/100) >= this.moveAhead) {
             this.nextLayer();
         }
         else {
             return;
         }
+    }
+    
+    this.playDirtSound = function() {
+        this.fx.play();
+        return;
     }
 };

@@ -7,10 +7,10 @@ globals.gameState.MAINMENU = function (game) {
     };
 
     this.preload = function () {
+        //commented out the BGM for the menu in the logicGrid branch so it doesn't distract. Can be found working in mainMenu branch.
         // Load the background for the main menu
         game.load.image('menubackground', 'images/TitleMenu/MenuLayout.png');
         game.load.image('startbutton',    'images/TitleMenu/StartButton.png');
-        game.load.image('startbutton2',   'images/TitleMenu/Title.png');
         game.load.audio('menuBGMintro',   'music/creepyintro.wav');
         game.load.audio('menuBGMloop',    'music/creepyloop.wav');
     };
@@ -30,6 +30,8 @@ globals.gameState.MAINMENU = function (game) {
         this.music.play();
         
         this.music.onStop.addOnce(this.loopAudio);
+
+        game.add.button(offsets.startbutton.x, offsets.startbutton.y, 'startbutton', this.startGame);
     };
     
     this.loopAudio = function() {

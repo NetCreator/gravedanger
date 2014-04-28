@@ -1,6 +1,8 @@
 globals.gameState.PLAYING = function (game) {
     this.layers = new Array();
     
+    
+    
     this.preload = function () {
         // Initialize Sounds
         game.load.audio('hittingcoffin', 'sounds/hittingcoffin.wav');

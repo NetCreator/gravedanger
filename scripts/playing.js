@@ -79,7 +79,6 @@ globals.gameState.PLAYING = function (game) {
         
         this.lowerLayer.drawBackground();
         game.add.existing(this.differential);
-        //this.differential.bringToTop();
         this.layer.draw();
         
         game.world.sort();
@@ -88,11 +87,6 @@ globals.gameState.PLAYING = function (game) {
     this.updateLayers = function () {
         this.layer.cellUpdateOnClick(this.layer);
         
-        //this.lowerLayer.drawBackground();
-        //game.add.existing(this.differential);
-        //this.differential.bringToTop();
-        //this.layer.draw();
-        
         game.world.sort();
         
         this.gridStatus();
@@ -100,7 +94,7 @@ globals.gameState.PLAYING = function (game) {
     
     this.gridStatus = function() {
         this.playDirtSound();
-        if(Math.floor(((this.layer.logicGridStats.numColumns*this.layer.logicGridStats.numRows)*5)/100) <= this.layer.numHoles) {
+        if(this.layer.numHoles >= Math.floor((((this.layer.logicGridStats.numColumns-3)*(this.layer.logicGridStats.numRows-3))*.3))) {
             this.nextLayer();
         }
         else {

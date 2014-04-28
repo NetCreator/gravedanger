@@ -4,16 +4,16 @@ globals.gameState.INTRO = function (game) {
      * @type {Array}
      */
     var flavortext = {
-        key:         ['text1', 'text2', 'text3', 'text4', 'text5', 'text6', 'text7', 'text8'],
-        offsetX:     [422/2, 486/2, 262/2, 120/2, 112/2, 326/2, 174/2, 234/2],
-        fadeInTime:  [4, 5, 4, 3, 3, 6, 4, 3],
-        fadeOutTime: [2, 2, 2, 2, 2, 2, 2, 4]
+        key:         ['text1', 'text2', 'text3', 'text4', 'text5', 'text6'],
+        offsetX:     [422/2, 486/2, 262/2, 120/2, 112/2, 326/2],
+        fadeInTime:  [4, 5, 4, 3, 3, 6],
+        fadeOutTime: [2, 2, 2, 2, 2, 2]
     };
 
     var textOffset = {
         x: 400,
         y: 200
-    }
+    };
 
     this.preload = function () {
         this.load.image('black', 'images/Intro/black.png');
@@ -24,8 +24,6 @@ globals.gameState.INTRO = function (game) {
         this.load.image('text4', 'images/Intro/text4.png');
         this.load.image('text5', 'images/Intro/text5.png');
         this.load.image('text6', 'images/Intro/text6.png');
-        this.load.image('text7', 'images/Intro/text7.png');
-        this.load.image('text8', 'images/Intro/text8.png');
     };
 
     this.create = function () {
@@ -45,15 +43,11 @@ globals.gameState.INTRO = function (game) {
     this.fadeInText = function () {
         if (this.nextText >= flavortext.key.length) {
             this.introComplete();
+            return;
         }
 
         this.textGroup.remove(this.curtext, true);
         this.curtext = this.textGroup.create(textOffset.x - flavortext.offsetX[++this.nextText], textOffset.y, flavortext.key[this.nextText]);
-
-        var tween = this.add.tween(this.textGroup);
-        tween.to({alpha: 1}, flavortext.fadeInTime[this.nextText] * 1000);
-        tween.onComplete.add(this.fadeOutText, this);
-        tween.start();
 
         if (this.nextText == 1) {
             this.bgGroup.getTop().kill();
@@ -63,20 +57,25 @@ globals.gameState.INTRO = function (game) {
             this.bgGroup.getTop().loadTexture('sight');
             this.bgGroup.getTop().revive();
 
-            var tween = this.add.tween(this.bgGroup);
-            tween.to({alpha: 1}, 23000);
-            tween.start();
+            var bgtween = this.add.tween(this.bgGroup);
+            bgtween.to({alpha: 1}, 23000);
+            bgtween.start();
         }
-    }
+        
+        var tween = this.add.tween(this.textGroup);
+        tween.to({alpha: 1}, flavortext.fadeInTime[this.nextText] * 1000);
+        tween.onComplete.add(this.fadeOutText, this);
+        tween.start();
+    };
 
     this.fadeOutText = function () {
         var tween = this.add.tween(this.textGroup);
         tween.to({alpha: 0}, flavortext.fadeOutTime[this.nextText] * 1000);
         tween.onComplete.add(this.fadeInText, this);
         tween.start();
-    }
+    };
 
     this.introComplete = function () {
         game.state.start('Playing');
-    }
+    };
 };

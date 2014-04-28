@@ -1,8 +1,6 @@
 globals.gameState.PLAYING = function (game) {
     this.layers = new Array();
     
-    
-    
     this.preload = function () {
         //Sherlock - added in temp holders for the initial coffin layer and further layers to be edited and commented in as progress happens.
         game.load.audio('hittingcoffin', 'sounds/hittingcoffin.wav');
@@ -51,7 +49,10 @@ globals.gameState.PLAYING = function (game) {
         game.add.sprite(0,0,'differential'); // for clarity of which layer we are on
         this.layer.draw();
     };
-
+    
+    // Amount of holes it take to move onto a new layer as a percent
+    this.moveAhead = 60
+    
     this.update = function () {
     };
 
@@ -73,7 +74,12 @@ globals.gameState.PLAYING = function (game) {
         this.layer.draw();
     };
     
-    this.gridStatus = function () {
-           
+    this.gridStatus = function() {
+        if(Math.floor((this.layers.numHoles/(this.layers.logicGridStats.numRows*this.layers.logicGridStats.numColumns))*100) >= this.moveAhead) {
+            this.nextLayer();
+        }
+        else {
+            return;
+        }
     }
 };

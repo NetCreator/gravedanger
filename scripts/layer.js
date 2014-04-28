@@ -92,11 +92,6 @@ function layer(game, imgkey, layernumber)
                 if(this.logicGrid[x][y] < this.finalStage)
                 {   
                     this.group.add(this.patches[x][y]);
-                    //this.patches[x][y].bringToTop;
-                }
-                else
-                {
-                    this.group.remove(this.patches[x][y], true);
                 }
             }
         }
@@ -106,30 +101,25 @@ function layer(game, imgkey, layernumber)
     
     this.drawBackground = function () {
         this.group.add(this.sprite);
-        //this.sprite.bringToTop();
     };
 
-    this.cellUpdateOnClick = function () { //Please change name to one that is equally understandable but easier to type TT-TT
-        var temp = {x: game.input.mousePointer.x, y: game.input.mousePointer.y};
-
-        var temp2 = {x: temp.x/this.virtualTileSize, y: temp.y/this.virtualTileSize};
-
-        var temp3 = {x: Math.floor(temp2.x), y: Math.floor(temp2.y)};
-
-        console.log(this.logicGrid[temp3.x+1][temp3.y +1]);
-
+    this.cellUpdateOnClick = function (that) { //Please change name to one that is equally understandable but easier to type TT-TT
+        
         var mousePosition = {
-            x: Math.floor(game.input.mousePointer.x/this.virtualTileSize)+1,
-            y: Math.floor(game.input.mousePointer.y/this.virtualTileSize)+1,
+            x: Math.floor(game.input.mousePointer.x/that.virtualTileSize)+1,
+            y: Math.floor(game.input.mousePointer.y/that.virtualTileSize)+1,
         }
+        
+        console.log(that.logicGrid[mousePosition.x][mousePosition.y]);
 
-        if (this.logicGrid[mousePosition.x][mousePosition.y] == this.finalStage) {
+        if (that.logicGrid[mousePosition.x][mousePosition.y] == that.finalStage) {
             return; // do nothing to the tile because nothing further can happen
         }
         else {
-            this.logicGrid[mousePosition.x][mousePosition.y]++;
-            if(this.logicGrid[mousePosition.x][mousePosition.y] == this.finalStage) {
-                this.numHoles++;
+            that.logicGrid[mousePosition.x][mousePosition.y]++;
+            if(that.logicGrid[mousePosition.x][mousePosition.y] == that.finalStage) {
+                that.numHoles++;
+                that.group.remove(that.patches[mousePosition.x][mousePosition.y]);
             }
         }
     };

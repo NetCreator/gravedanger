@@ -41,12 +41,12 @@ globals.gameState.PLAYING = function (game) {
         
         game.stage.backgroundColor = 0x880000;
         
-        this.lowerLayer = this.layers[0];
-        this.layer = this.layers[1];
+        this.lowerLayer = this.layers[1];
+        this.layer = this.layers[0];
         
         this.differential = new Phaser.Sprite(game, 0,0, 'differential')
         
-        game.input.onDown.add(this.redrawLayers, this);
+        game.input.onDown.add(this.updateLayers, this);
         
         this.lowerLayer.drawBackground();
         game.add.existing(this.differential); // for clarity of which layer we are on
@@ -80,13 +80,13 @@ globals.gameState.PLAYING = function (game) {
         game.world.sort();
     };
     
-    this.redrawLayers = function () {
-        this.layer.cellUpdateOnClick();
+    this.updateLayers = function () {
+        this.layer.cellUpdateOnClick(this.layer);
         
-        this.lowerLayer.drawBackground();
-        game.add.existing(this.differential);
+        //this.lowerLayer.drawBackground();
+        //game.add.existing(this.differential);
         //this.differential.bringToTop();
-        this.layer.draw();
+        //this.layer.draw();
         
         game.world.sort();
         

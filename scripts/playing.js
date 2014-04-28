@@ -1,6 +1,8 @@
 globals.gameState.PLAYING = function (game) {
     this.layers = new Array();
     
+    this.nextLayer = 1;
+    
     this.preload = function () {
         // Initialize Sounds
         game.load.audio('hittingcoffin', 'sounds/hittingcoffin.wav');
@@ -56,9 +58,15 @@ globals.gameState.PLAYING = function (game) {
     };
 
     this.nextLayer = function () {
+        
+        if(this.nextLayer == 6) {
+            return; // ADD IN THE END OF GAME STUFFS >:(
+        }
+        
         temp = this.layer;
         this.layer = this.lowerLayer;
-        this.lowerLayer = temp;
+        this.lowerLayer = this.layer[nextLayer];
+        this.nextLayer++;
         
         this.lowerLayer.draw();
         game.add.sprite(0,0,'differential');

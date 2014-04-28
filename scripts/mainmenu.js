@@ -10,8 +10,9 @@ globals.gameState.MAINMENU = function (game) {
         // Load the background for the main menu
         game.load.image('menubackground', 'images/TitleMenu/MenuLayout.png');
         game.load.image('startbutton',    'images/TitleMenu/StartButton.png');
-        game.load.audio('menuBGMintro', 'music/creepyintro.wav');
-        game.load.audio('menuBGMloop', 'music/creepyloop.wav');
+        game.load.image('startbutton2',   'images/TitleMenu/Title.png');
+        game.load.audio('menuBGMintro',   'music/creepyintro.wav');
+        game.load.audio('menuBGMloop',    'music/creepyloop.wav');
     };
 
     this.create = function () {
@@ -30,9 +31,8 @@ globals.gameState.MAINMENU = function (game) {
         
         this.music.onStop.addOnce(this.loopAudio);
     };
-
-    this.loopAudio = function()
-    {
+    
+    this.loopAudio = function() {
         this.music = new Phaser.Sound(game, 'menuBGMloop');
         this.music.play('', 0, 1, true);
     };

@@ -8,11 +8,6 @@ function layer(game, imgkey)
     // Size the game treats the tile as for purposes of rendering larger than a tile
     this.virtualTileSize = 100;
     
-    this.mousePosition = {
-        x: Math.floor(game.input.mousePointer.x/this.virtualTileSize)+1,
-        y: Math.floor(game.input.mousePointer.y/this.virtualTileSize)+1,
-    }
-    
     // Final stage number for a cell
     this.finalStage = 5;
     
@@ -28,17 +23,10 @@ function layer(game, imgkey)
     for (var i = 0; i < this.logicGridStats.numRows; i++) {
         this.logicGrid[i] = new Array(this.logicGridStats.numColumns);
         
-        // Junk init loop
+        // Setting the numerical status for all stages to 0
         for (var j = 0; j < this.logicGrid[i].length; j++)
         {
             this.logicGrid[i][j] = 0;
-        }
-    }
-    
-    // Setting the numerical status for all stages to 0
-    for (var x = 0; x < this.logicGridStats.numRows; x++) {
-        for (var y = 0; y < this.logicGridStats.numColumns; y++) {
-            logicGrid[x][y] = 0;
         }
     }
     
@@ -65,8 +53,8 @@ function layer(game, imgkey)
         {
             for(var x = 0; x <= this.logicGrid[y].length; x++)
             {
-                if(this.logicGrid[y][x] == 0)
-                {
+                if(this.logicGrid[y][x] < this.finalStage)
+                {   
                     // Create the bitmap data structure for storing the tile patch
                     tilepatch = game.add.bitmapData(
                         this.actualTileSize,
@@ -99,11 +87,22 @@ function layer(game, imgkey)
     }
     
     this.cellUpdateOnClick = function() { //Please change name to one that is equally understandable but easier to type TT-TT
-        if (this.logicGrid[this.mousePosition.x][this.mousePosition.y] == this.finalStage) {
+        var temp = {x: game.input.mousePointer.x, y: game.input.mousePointer.y};
+        
+        var temp2 = {x: temp.x/100, y: temp.y/100};
+        
+        var temp3 = {x: Math.floor(temp2['x']), y: Math.floor(temp2.y)};
+        
+        var mousePosition = {
+            x: Math.floor(game.input.mousePointer.x/100)+1,
+            y: Math.floor(game.input.mousePointer.y/100)+1,
+        }
+        
+        if (this.logicGrid[mousePosition.x][mousePosition.y] == this.finalStage) {
             return; // do nothing to the tile because nothing further can happen
         }
         else {
-            this.logicGrid[this.mousePosition.x][this.mousePosition.y]++;
+            this.logicGrid[mousePosition.x][mousePosition.y]++;
         }
     }
 }

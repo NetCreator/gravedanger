@@ -90,6 +90,10 @@ function layer(game, imgkey)
             }
         }
     };
+    
+    this.drawBackground = function () {
+        game.add.existing(this.sprite);
+    };
 
     this.cellUpdateOnClick = function () { //Please change name to one that is equally understandable but easier to type TT-TT
         var temp = {x: game.input.mousePointer.x, y: game.input.mousePointer.y};

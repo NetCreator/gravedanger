@@ -44,10 +44,12 @@ globals.gameState.PLAYING = function (game) {
         this.lowerLayer = this.layers[0];
         this.layer = this.layers[1];
         
+        this.differential = new Phaser.Sprite(game, 0,0, 'differential')
+        
         game.input.onDown.add(this.redrawLayers, this);
         
-        this.lowerLayer.draw();
-        game.add.sprite(0,0,'differential'); // for clarity of which layer we are on
+        this.lowerLayer.drawBackground();
+        game.add.existing(this.differential); // for clarity of which layer we are on
         this.layer.draw();
     };
     
@@ -67,16 +69,16 @@ globals.gameState.PLAYING = function (game) {
         this.lowerLayer = this.layer[nextLayer];
         this.nextLayer++;
         
-        this.lowerLayer.draw();
-        game.add.sprite(0,0,'differential');
+        this.lowerLayer.drawBackground();
+        game.add.existing(this.differential);
         this.layer.draw();
     };
     
     this.redrawLayers = function () {
         this.layer.cellUpdateOnClick();
         
-        this.lowerLayer.draw();
-        game.add.sprite(0,0,'differential');
+        this.lowerLayer.drawBackground();
+        game.add.existing(this.differential);
         this.layer.draw();
         
         this.gridStatus();

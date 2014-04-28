@@ -70,9 +70,12 @@ globals.gameState.PLAYING = function (game) {
             return; // ADD IN THE END OF GAME STUFFS >:(
         }
         
-        this.layer = this.lowerLayer;
-        this.lowerLayer = this.layer[this.numNextLayer];
+        game.world.remove(this.layer.group);
+        
         this.numNextLayer++;
+        
+        this.layer = this.lowerLayer;
+        this.lowerLayer = this.layers[this.numNextLayer];
         
         this.lowerLayer.drawBackground();
         game.add.existing(this.differential);
@@ -97,7 +100,7 @@ globals.gameState.PLAYING = function (game) {
     
     this.gridStatus = function() {
         this.playDirtSound();
-        if(Math.floor(((this.layer.logicGridStats.numColumns*this.layer.logicGridStats.numRows)*60)/100) >= this.moveAhead) {
+        if(Math.floor(((this.layer.logicGridStats.numColumns*this.layer.logicGridStats.numRows)*5)/100) <= this.layer.numHoles) {
             this.nextLayer();
         }
         else {

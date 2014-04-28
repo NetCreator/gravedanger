@@ -40,10 +40,10 @@ globals.gameState.PLAYING = function (game) {
         
         game.stage.backgroundColor = 0x880000;
         
-        game.input.onDown.add(this.nextLayer, this);
-        
         lowerLayer = this.layers[0];
         layer = this.layers[1];
+        
+        game.input.onDown.add(layer.cellUpdateOnClick, this);
         
         lowerLayer.draw();
         game.add.sprite(0,0,'differential'); // for clarity of which layer we are on

@@ -10,14 +10,10 @@ function layer(game, imgkey)
 
     // Final stage number for a cell
     this.finalStage = 5;
-<<<<<<< HEAD
-
-=======
     
     // Number of holes created
     this.numHoles = 0;
     
->>>>>>> 11cebf143eb71b86f77a56ba1482f10862cfd181
     // Dynamically determine the dimensions of the logic grid
     this.logicGridStats = {
         numColumns: Math.floor(800/this.virtualTileSize)+3,

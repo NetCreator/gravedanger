@@ -17,7 +17,7 @@ globals.gameState.INTRO = function (game) {
 
     this.preload = function () {
         this.load.image('black', 'images/Intro/black.png');
-        this.load.image('sight', 'images/layers/coffintop1.png');
+        this.load.image('sight', 'images/layers/coffintop2.png');
         this.load.image('text1', 'images/Intro/text1.png');
         this.load.image('text2', 'images/Intro/text2.png');
         this.load.image('text3', 'images/Intro/text3.png');
@@ -64,7 +64,7 @@ globals.gameState.INTRO = function (game) {
             this.bgGroup.getTop().revive();
 
             var tween = this.add.tween(this.bgGroup);
-            tween.to({alpha: 1}, 28000);
+            tween.to({alpha: 1}, 23000);
             tween.start();
         }
     }

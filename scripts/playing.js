@@ -30,13 +30,13 @@ globals.gameState.PLAYING = function (game) {
     this.create = function () {
         //Sherlock - also added in temp holders here for the same purposes. Was wondering if we should edit the names to be 'Dirt1' and such for clarity later on?
         this.layers = [
-            new layer(game, 'layer0'),
-            new layer(game, 'layer1'),
-            new layer(game, 'layer2'),
-            new layer(game, 'layer3'),
-            new layer(game, 'layer4'),
-            new layer(game, 'layer5'),
-            //new layer(game, 'sky')
+            new layer(game, 'layer0', 0),
+            new layer(game, 'layer1', 1),
+            new layer(game, 'layer2', 2),
+            new layer(game, 'layer3', 3),
+            new layer(game, 'layer4', 4),
+            new layer(game, 'layer5', 5),
+            //new layer(game, 'sky', 6)
         ];
         
         game.stage.backgroundColor = 0x880000;
@@ -50,7 +50,10 @@ globals.gameState.PLAYING = function (game) {
         
         this.lowerLayer.drawBackground();
         game.add.existing(this.differential); // for clarity of which layer we are on
+        //this.differential.bringToTop();
         this.layer.draw();
+        
+        game.world.sort();
     };
     
     // Amount of holes it take to move onto a new layer as a percent
@@ -71,7 +74,10 @@ globals.gameState.PLAYING = function (game) {
         
         this.lowerLayer.drawBackground();
         game.add.existing(this.differential);
+        //this.differential.bringToTop();
         this.layer.draw();
+        
+        game.world.sort();
     };
     
     this.redrawLayers = function () {
@@ -79,7 +85,10 @@ globals.gameState.PLAYING = function (game) {
         
         this.lowerLayer.drawBackground();
         game.add.existing(this.differential);
+        //this.differential.bringToTop();
         this.layer.draw();
+        
+        game.world.sort();
         
         this.gridStatus();
     };

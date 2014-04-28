@@ -8,7 +8,7 @@
         <script src="scripts/mainmenu.js"></script>
         <script src="scripts/playing.js"></script>
         <script src="scripts/gameover.js"></script>
-        <script src="fonts/Cracked"></script>
+        <script src="scripts/intro.js"></script>
         <script type="text/javascript">
             var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game-container');
 
@@ -17,6 +17,7 @@
             // Add game states
             game.state.add('MainMenu', globals.gameState.MAINMENU);
             game.state.add('Playing',  globals.gameState.PLAYING);
+            game.state.add('GameIntro', globals.gameState.INTRO);
             game.state.add('GameOver', globals.gameState.GAMEOVER);
 
             game.state.start('MainMenu');

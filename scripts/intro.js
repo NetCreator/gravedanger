@@ -54,6 +54,19 @@ globals.gameState.INTRO = function (game) {
         tween.to({alpha: 1}, flavortext.fadeInTime[this.nextText] * 1000);
         tween.onComplete.add(this.fadeOutText, this);
         tween.start();
+
+        if (this.nextText == 1) {
+            this.bgGroup.getTop().kill();
+            this.bgGroup.alpha = 0;
+            this.bgGroup.getTop().x = -100;
+            this.bgGroup.getTop().y = -100;
+            this.bgGroup.getTop().loadTexture('sight');
+            this.bgGroup.getTop().revive();
+
+            var tween = this.add.tween(this.bgGroup);
+            tween.to({alpha: 1}, 28000);
+            tween.start();
+        }
     }
 
     this.fadeOutText = function () {

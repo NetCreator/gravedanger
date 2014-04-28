@@ -36,7 +36,7 @@ function layer(game, imgkey)
     
     this.redraw = function () {
         this.draw();
-    }
+    };
     
     this.draw = function () {
         this.patches = new Array(this.logicGrid.length);
@@ -84,19 +84,19 @@ function layer(game, imgkey)
                 }
             }
         }
-    }
+    };
     
     this.cellUpdateOnClick = function() { //Please change name to one that is equally understandable but easier to type TT-TT
         var temp = {x: game.input.mousePointer.x, y: game.input.mousePointer.y};
         
         var temp2 = {x: temp.x/100, y: temp.y/100};
         
-        var temp3 = {x: Math.floor(temp2['x']), y: Math.floor(temp2.y)};
+        var temp3 = {x: Math.floor(temp2.x), y: Math.floor(temp2.y)};
         
         var mousePosition = {
             x: Math.floor(game.input.mousePointer.x/100)+1,
             y: Math.floor(game.input.mousePointer.y/100)+1,
-        }
+        };
         
         if (this.logicGrid[mousePosition.x][mousePosition.y] == this.finalStage) {
             return; // do nothing to the tile because nothing further can happen
@@ -104,5 +104,5 @@ function layer(game, imgkey)
         else {
             this.logicGrid[mousePosition.x][mousePosition.y]++;
         }
-    }
+    };
 }

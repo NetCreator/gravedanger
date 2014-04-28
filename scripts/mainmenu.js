@@ -43,6 +43,6 @@ globals.gameState.MAINMENU = function (game) {
     };
 
     this.startGame = function () {
-        game.state.start('GameIntro');
+        game.state.start('Playing');
     };
 };

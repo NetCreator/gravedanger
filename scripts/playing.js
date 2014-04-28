@@ -32,7 +32,7 @@ globals.gameState.PLAYING = function (game) {
         game.load.image('dirt4bg', 'images/layers/dirt4background.png');
         game.load.image('dirt5', 'images/layers/dirt5.png');
         game.load.image('dirt5bg', 'images/layers/dirt5background.png');
-        //game.load.image('sky', 'images/layers/skybox.png');
+        game.load.image('sky', 'images/layers/skybox.png');
 
         // Load game text
         this.load.image('text7', 'images/Intro/text7.png');
@@ -56,7 +56,7 @@ globals.gameState.PLAYING = function (game) {
             new layer(game, 'dirt3', 'dirt3bg', 3),
             new layer(game, 'dirt4', 'dirt4bg', 4),
             new layer(game, 'dirt5', 'dirt5bg', 5),
-            //new layer(game, 'sky', 6)
+            new layer(game, 'sky', 'sky', 6)
         ];
 
         this.fx = game.add.audio('diggingdirt', 1, false);

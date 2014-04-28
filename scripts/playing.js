@@ -1,6 +1,8 @@
 globals.gameState.PLAYING = function (game) {
     this.layers = new Array();
     
+    
+    
     this.preload = function () {
         //Sherlock - added in temp holders for the initial coffin layer and further layers to be edited and commented in as progress happens.
         game.load.audio('hittingcoffin', 'sounds/hittingcoffin.wav');
@@ -43,7 +45,7 @@ globals.gameState.PLAYING = function (game) {
         lowerLayer = this.layers[0];
         layer = this.layers[1];
         
-        game.input.onDown.add(layer.cellUpdateOnClick, this);
+        game.input.onDown.add(layer.cellUpdateOnClick, layer);
         
         lowerLayer.draw();
         game.add.sprite(0,0,'differential'); // for clarity of which layer we are on

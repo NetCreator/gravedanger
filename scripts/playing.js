@@ -63,7 +63,6 @@ globals.gameState.PLAYING = function (game) {
             return; // ADD IN THE END OF GAME STUFFS >:(
         }
         
-        temp = this.layer;
         this.layer = this.lowerLayer;
         this.lowerLayer = this.layer[nextLayer];
         this.nextLayer++;
@@ -79,10 +78,12 @@ globals.gameState.PLAYING = function (game) {
         this.lowerLayer.draw();
         game.add.sprite(0,0,'differential');
         this.layer.draw();
+        
+        this.gridStatus();
     };
     
     this.gridStatus = function() {
-        if(Math.floor((this.layers.numHoles/(this.layers.logicGridStats.numRows*this.layers.logicGridStats.numColumns))*100) >= this.moveAhead) {
+        if(Math.floor(((this.layer.logicGridStats.numColumns*this.layer.logicGridStats.numRows)*60)/100) >= this.moveAhead) {
             this.nextLayer();
         }
         else {

@@ -56,7 +56,7 @@ function layer(game, imgkey)
         {
             for(var x = 0; x <= this.logicGrid[y].length; x++)
             {
-                if(this.logicGrid[y][x] < this.finalStage)
+                if(this.logicGrid[x][y] < this.finalStage)
                 {   
                     // Create the bitmap data structure for storing the tile patch
                     tilepatch = game.add.bitmapData(

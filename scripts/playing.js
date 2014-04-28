@@ -42,27 +42,35 @@ globals.gameState.PLAYING = function (game) {
         
         game.stage.backgroundColor = 0x880000;
         
-        lowerLayer = this.layers[0];
-        layer = this.layers[1];
+        this.lowerLayer = this.layers[0];
+        this.layer = this.layers[1];
         
-        game.input.onDown.add(layer.cellUpdateOnClick, layer);
+        game.input.onDown.add(this.redrawLayers, this);
         
-        lowerLayer.draw();
+        this.lowerLayer.draw();
         game.add.sprite(0,0,'differential'); // for clarity of which layer we are on
-        layer.draw();
+        this.layer.draw();
     };
 
     this.update = function () {
     };
 
     this.nextLayer = function () {
-        temp = layer;
-        layer = lowerLayer;
-        lowerLayer = temp;
+        temp = this.layer;
+        this.layer = this.lowerLayer;
+        this.lowerLayer = temp;
         
-        lowerLayer.draw();
+        this.lowerLayer.draw();
         game.add.sprite(0,0,'differential');
-        layer.draw();
+        this.layer.draw();
+    };
+    
+    this.redrawLayers = function () {
+        this.layer.cellUpdateOnClick();
+        
+        this.lowerLayer.draw();
+        game.add.sprite(0,0,'differential');
+        this.layer.draw();
     };
     
     this.gridStatus = function () {

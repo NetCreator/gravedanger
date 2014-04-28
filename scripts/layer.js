@@ -1,5 +1,5 @@
 function layer(game, imgkey)
-{
+{   
     this.game = game;
     
     // Size of the physical tile image
@@ -89,16 +89,18 @@ function layer(game, imgkey)
         }
     }
     
-    this.cellUpdateOnClick = function() { //Please change name to one that is equally understandable but easier to type TT-TT
+    this.cellUpdateOnClick = function () { //Please change name to one that is equally understandable but easier to type TT-TT
         var temp = {x: game.input.mousePointer.x, y: game.input.mousePointer.y};
         
-        var temp2 = {x: temp.x/100, y: temp.y/100};
+        var temp2 = {x: temp.x/this.virtualTileSize, y: temp.y/this.virtualTileSize};
         
         var temp3 = {x: Math.floor(temp2['x']), y: Math.floor(temp2.y)};
         
+        console.log(this.logicGrid[temp3.x+1][temp3.y +1]);
+        
         var mousePosition = {
-            x: Math.floor(game.input.mousePointer.x/100)+1,
-            y: Math.floor(game.input.mousePointer.y/100)+1,
+            x: Math.floor(game.input.mousePointer.x/this.virtualTileSize)+1,
+            y: Math.floor(game.input.mousePointer.y/this.virtualTileSize)+1,
         }
         
         if (this.logicGrid[mousePosition.x][mousePosition.y] == this.finalStage) {

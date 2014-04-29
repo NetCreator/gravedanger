@@ -4,10 +4,10 @@ globals.gameState.INTRO = function (game) {
      * @type {Array}
      */
     var flavortext = {
-        key:         ['text1', 'text2', 'text3', 'text4', 'text5', 'text6'],
-        offsetX:     [422/2, 486/2, 262/2, 120/2, 112/2, 326/2],
-        fadeInTime:  [4, 5, 4, 3, 3, 6],
-        fadeOutTime: [2, 2, 2, 2, 2, 2]
+        key:         ['text1', 'text2', 'text3', 'text4', 'text5'],
+        offsetX:     [422/2, 486/2, 262/2, 120/2, 112/2],
+        fadeInTime:  [4, 5, 4, 3, 3],
+        fadeOutTime: [2, 2, 2, 2, 2]
     };
 
     var textOffset = {
@@ -23,7 +23,6 @@ globals.gameState.INTRO = function (game) {
         this.load.image('text3', 'images/Intro/text3.png');
         this.load.image('text4', 'images/Intro/text4.png');
         this.load.image('text5', 'images/Intro/text5.png');
-        this.load.image('text6', 'images/Intro/text6.png');
     };
 
     this.create = function () {

@@ -33,6 +33,7 @@ globals.gameState.PLAYING = function (game) {
         game.load.image('dirt5', 'images/layers/dirt5.png');
         game.load.image('dirt5bg', 'images/layers/dirt5background.png');
         game.load.image('sky', 'images/layers/skybox.png');
+        game.load.image('skybg', 'images/layers/skyboxbackground.png');
 
         // Load game text
         this.load.image('text7', 'images/Intro/text7.png');
@@ -56,7 +57,7 @@ globals.gameState.PLAYING = function (game) {
             new layer(game, 'dirt3', 'dirt3bg', 3),
             new layer(game, 'dirt4', 'dirt4bg', 4),
             new layer(game, 'dirt5', 'dirt5bg', 5),
-            new layer(game, 'sky', 'sky', 6)
+            new layer(game, 'sky', 'skybg', 6)
         ];
 
         this.fx = game.add.audio('diggingdirt', 1, false);
@@ -92,10 +93,6 @@ globals.gameState.PLAYING = function (game) {
     };
 
     this.nextLayer = function () {
-        if(this.numNextLayer >= this.layers.length - 1) {
-            game.state.start('GameOver');
-        }
-
         game.world.remove(this.layer.group);
 
         this.numNextLayer++;
@@ -108,6 +105,11 @@ globals.gameState.PLAYING = function (game) {
         this.layer.draw();
 
         game.world.sort();
+        
+        if(this.numNextLayer >= this.layers.length) {
+            game.state.start('GameOver');
+            return;
+        }
     };
 
     this.updateLayers = function () {

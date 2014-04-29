@@ -14,10 +14,10 @@ globals.gameState.GAMEOVER = function (game) {
         
     this.preload = function () {
         this.load.image('gamewinbackground', 'images/layers/skybox.png');
-        this.load.image('wintext', 'images/gamecomplete.png');
-        this.load.image('replaybutton', 'images/replay.png');
-        this.load.audio('gameover', 'music/spookyintro.wav');
-        this.load.audio('gameoverloop', 'music/spookyloop.wav');
+        this.load.image('wintext',           'images/gamecomplete.png');
+        this.load.image('replaybutton',      'images/replay.png');
+        this.load.audio('gameover',          'music/spookyintro.wav');
+        game.load.audio('gameoverloop',      'music/spookyloop.wav');
     };
 
     this.create = function () {
@@ -35,7 +35,7 @@ globals.gameState.GAMEOVER = function (game) {
         
         // Add the BGM
         game.sound.pauseAll();
-        gameovermusic = game.add.sound('gameover');
+        gameovermusic = this.add.sound('gameover');
         gameovermusic.play();
         
         gameovermusic.onStop.addOnce(this.loopAudio);

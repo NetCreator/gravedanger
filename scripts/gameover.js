@@ -1,40 +1,41 @@
 globals.gameState.GAMEOVER = function (game) {
     var offsets = {
         gameovertext: {
-            x: 250,
+            x: 400 - (322/2),
             y: 200
         },
         replaybutton: {
-            x: 300,
+            x: 400 - (122/2),
             y: 400
         }
     }
         
     this.preload = function () {
-        game.load.image('gamewinbackground', 'images/gamewin.png');
-        game.load.image('wintext', 'images/winnertext.png');
-        game.load.image('replaybutton', 'images/replaybutton.png');
-        game.load.audio('gameover', 'music/gameoverBGM.wav');
-        game.load.audio('gameoverloop', 'music/gameoverloopBGM.wav');
+        this.load.image('gamewinbackground', 'images/layers/skybox.png');
+        this.load.image('wintext', 'images/gamecomplete.png');
+        this.load.image('replaybutton', 'images/replay.png');
+        this.load.audio('gameover', 'music/spookyintro.wav');
+        this.load.audio('gameoverloop', 'music/spookyloop.wav');
     };
 
     this.create = function () {
         // Add and render the background for the gameover/win
-        game.add.sprite(0, 0, 'gamewinbackground');
+        this.add.sprite(0, 0, 'gamewinbackground');
         
         // Add and render the gameover/win text. The height is constant, however the x-value should be 400-(imagesize.x/2) to ensure that the text is centered x-wise.
-        game.add.sprite(offsets.gameovertext.x, offsets.gameovertext.y, 'wintext');
+        this.add.sprite(offsets.gameovertext.x, offsets.gameovertext.y, 'wintext');
         
         // Add and render the replay button
-        game.add.sprite(offsets.replaybutton.x, offsets.replaybutton.y, 'replaybutton');
+        this.add.sprite(offsets.replaybutton.x, offsets.replaybutton.y, 'replaybutton');
+        
+        // Check for a click to start the game
+        game.input.onDown.addOnce(this.replayGame);
         
         // Add the BGM
         this.gameovermusic = game.add.sound('gameover');
         this.gameovermusic.play();
         
         this.music.onStop.addOnce(this.loopAudio);
-
-        game.add.button(offsets.replaybutton.x, offsets.replaybutton.y, 'replaybutton', this.replayGame);
     };
     
     this.loopAudio = funtion() {

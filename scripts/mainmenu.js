@@ -30,8 +30,6 @@ globals.gameState.MAINMENU = function (game) {
         this.music.play();
         
         this.music.onStop.addOnce(this.loopAudio);
-
-        game.add.button(offsets.startbutton.x, offsets.startbutton.y, 'startbutton', this.startGame);
     };
     
     this.loopAudio = function() {
@@ -43,6 +41,6 @@ globals.gameState.MAINMENU = function (game) {
     };
 
     this.startGame = function () {
-        game.state.start('Playing');
+        game.state.start('GameOver');
     };
 };

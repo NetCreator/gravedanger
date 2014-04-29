@@ -57,12 +57,13 @@ globals.gameState.PLAYING = function (game) {
             new layer(game, 'dirt3', 'dirt3bg', 3),
             new layer(game, 'dirt4', 'dirt4bg', 4),
             new layer(game, 'dirt5', 'dirt5bg', 5),
-            new layer(game, 'sky', 'skybg', 6)
+            new layer(game, 'sky', 'skybg', 6),
+            new layer(game, 'sky', 'sky', 7)
         ];
 
         this.fx = game.add.audio('diggingdirt', 1, false);
 
-        game.stage.backgroundColor = 0x880000;
+        game.stage.backgroundColor = 0x000000;
 
         this.lowerLayer = this.layers[1];
         this.layer = this.layers[0];
@@ -94,8 +95,18 @@ globals.gameState.PLAYING = function (game) {
 
     this.nextLayer = function () {
         game.world.remove(this.layer.group);
-
+        
         this.numNextLayer++;
+        
+        if(this.numNextLayer >= this.layers.length - 1) {
+            this.layer = this.lowerLayer;
+            this.lowerLayer = this.layers[this.numNextLayer];
+
+            this.lowerLayer.drawBackground();
+            
+            game.state.start('GameOver');
+            return;
+        }
 
         this.layer = this.lowerLayer;
         this.lowerLayer = this.layers[this.numNextLayer];
@@ -105,11 +116,6 @@ globals.gameState.PLAYING = function (game) {
         this.layer.draw();
 
         game.world.sort();
-        
-        if(this.numNextLayer >= this.layers.length) {
-            game.state.start('GameOver');
-            return;
-        }
     };
 
     this.updateLayers = function () {

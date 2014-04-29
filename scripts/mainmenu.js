@@ -42,6 +42,6 @@ globals.gameState.MAINMENU = function (game) {
     };
 
     this.startGame = function () {
-        game.state.start('GameOver');
+        game.state.start('GameIntro');
     };
 };

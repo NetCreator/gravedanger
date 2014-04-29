@@ -50,6 +50,7 @@ globals.gameState.GAMEOVER = function (game) {
     };
     
     this.replayGame = function() {
+        game.sound.pauseAll();
         game.state.start('MainMenu');
     };
 };

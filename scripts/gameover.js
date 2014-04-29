@@ -5,10 +5,12 @@ globals.gameState.GAMEOVER = function (game) {
             y: 200
         },
         replaybutton: {
-            x: 400 - (122/2),
+            x: 400 - (244/2),
             y: 400
         }
-    }
+    };
+    
+    var gameovermusic;
         
     this.preload = function () {
         this.load.image('gamewinbackground', 'images/layers/skybox.png');
@@ -29,24 +31,25 @@ globals.gameState.GAMEOVER = function (game) {
         this.add.sprite(offsets.replaybutton.x, offsets.replaybutton.y, 'replaybutton');
         
         // Check for a click to start the game
-        game.input.onDown.addOnce(this.replayGame);
+        this.input.onDown.addOnce(this.replayGame);
         
         // Add the BGM
-        this.gameovermusic = game.add.sound('gameover');
-        this.gameovermusic.play();
+        game.sound.pauseAll();
+        gameovermusic = game.add.sound('gameover');
+        gameovermusic.play();
         
-        this.music.onStop.addOnce(this.loopAudio);
+        gameovermusic.onStop.addOnce(this.loopAudio);
     };
     
-    this.loopAudio = funtion() {
-        this.gameovermusic = new Phaser.Sound(game, 'gameoverloop');
-        this.gameovermusic.play('', 0, 1, true);
-    }
+    this.loopAudio = function() {
+        gameovermusic = game.add.sound('gameoverloop');
+        gameovermusic.play('', 0, 1, true);
+    };
 
     this.update = function () {
     };
     
     this.replayGame = function() {
         game.state.start('MainMenu');
-    }
+    };
 };

@@ -92,8 +92,8 @@ globals.gameState.PLAYING = function (game) {
     };
 
     this.nextLayer = function () {
-        if(this.numNextLayer == this.layers.length + 1) {
-            game.state.start('GameOver'); // ADD IN THE END OF GAME STUFFS >:(
+        if(this.numNextLayer >= this.layers.length - 1) {
+            game.state.start('GameOver');
         }
 
         game.world.remove(this.layer.group);
